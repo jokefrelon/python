@@ -1,0 +1,5 @@
+我写了一个可以爬取pandoraboxd固件所对应软件包的爬虫,语法简单,没办法啊!小白菜,毕竟刚刚入门爬虫
+主要调用了requests和lxml这两个 模块还是库来着,反正在用之前需要安装这两货
+我是用的python3写的爬虫脚本,python2 环境没有试过
+pip install requests
+pip install lxml
