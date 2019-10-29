@@ -62,13 +62,4 @@ for folder in FOLDER_NAME:
                     welcome.append(ssl)
             
 
-# webPage2 = requests.get(url=URL_PIC[unmberX],
-# headers = {"User-Agent" : "Mozilla/5.0 (Linux; Android 8.0.0; Pixel 2 XL Build/OPD1.170816.004) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.120 Mobile Safari/537.36"})
-# WebPageHTML = webPage2.text
-# etree_Second = etree.HTML(WebPageHTML)
-# ThisPage_PIC_URL = etree_Second.xpath('//div[@class="xq_cont"]/a/img/@src')
-# NextPage_URL = etree_Second.xpath('//div[@class="xq_cont"]/a/@href')
-
-
-
 
