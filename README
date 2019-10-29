@@ -3,3 +3,6 @@
 我是用的python3写的爬虫脚本,python2 环境没有试过
 pip install requests
 pip install lxml
+
+无聊写了一个爬虫,用来爬取某网站的Beauty 图片,可是代码写完了,发现已经被网站拉黑了
+spi.py我也不能执行了,就放到git上充数
