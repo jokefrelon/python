@@ -1,46 +1,72 @@
 # Mininet 操作
 
-### mininet建立拓扑
+### 常用命令简析
 
-
-
-##### 最简单的方式,两个switch 两个pc
+##### 拓扑建立
 
 ~~~shell
-sudo mn
+sudo mn --topo xxx
 ~~~
 
 
 
-##### 最小的网络拓扑，一个交换机下挂两个主机
+###### 树形拓扑
 
 ~~~shell
-sudo mn --topo minimal
+sudo mn --topo=tree,fanout=2,depth=2
 ~~~
 
 
 
-##### 每个交换机连接一个主机，交换机间相连接
+###### 直线型拓扑
 
 ~~~shell
-sudo mn --topo linear,4
+sudo mn --topo=linear,4
 ~~~
 
 
 
-##### 每个主机都连接到同一个交换机上
+###### 单一型
 
 ~~~shell
-sudo mn --topo single,3
+sudo mn --topo =single,3
 ~~~
 
 
 
-##### 定义深度和扇出形成基于树的拓扑
+###### Python文件型
 
 ~~~shell
-sudo mn --topo tree, fanout=2,depth=2 --controller remote --switch ovsk,protocols=OpenFlow13
+sudo mn --custom xxx.py --topo mytopo
 ~~~
+
+##### 选择交换机
+
+~~~shell
+sudo mn --switch
+~~~
+
+--switcher 的参数主要有下面几个  **ovsk ovsbr ivs lxbr user**
+
+前面三种均为OVS型交换机，后面两种分别为内核型(linux bridge)和用户型(user)交换机,其中内核型和OVS型的吞吐量比用户性大很多，因此一般采用后两种
+
+
+
+##### 选择控制器
+
+~~~shell
+sudo mn --controller = remote
+~~~
+
+​      - **ip** = [控制器的IP地址]
+​      - **port** = [控制器的端口号]
+如果 **--ip** 和 **--port** 省略的话，则默认使用本地ip地址，端口默认使用**6653**或**6633**端口号。
+
+##### 固定MAC地址
+
+**--mac** 使用这个参数可以让MAC地址从小到达排列，使得复杂的网络更清晰，容易辨识各个组件的MAC地址。不使用这个参数的话，复杂的网络容易混乱。
+
+<hr>
 
 ### 互交界面操作
 
@@ -52,10 +78,18 @@ py net.addHost('h3')
 
 
 
-##### 添加Switch
+##### 添加Switch(非必须)
 
 ~~~shell
 py net.addSwitch("s2")
+~~~
+
+
+
+##### 给 S1witch添加端口eth3 
+
+~~~shell
+py s1.attach('s1-eth3')
 ~~~
 
 
@@ -64,14 +98,6 @@ py net.addSwitch("s2")
 
 ~~~shell
 py net.addLink(s1,net.get('h3'))
-~~~
-
-
-
-##### 给Switch S1 添加端口eth3 用于连接h3
-
-~~~shell
-py s1.attach('s1-eth3')
 ~~~
 
 
@@ -105,144 +131,6 @@ h1 ping h3
 | [node id] ping [node id]  |         测试两个节点间的网络连通          |
 |          pingall          |              ping所有的节点               |
 |      xterm [node id]      |        启动登陆到该节点的远程xterm        |
-
-### 使用python脚本自定义拓扑
-
-1.  --topo linear,4
-
-~~~python
-from mininet.net import Mininet
-from mininet.topo import LinearTopo
-Linear4 = LinearTopo(k=4)    #四个交换机，分别下挂一个主机
-net = Mininet(topo=Linear4)
-net.start()
-net.pingAll()
-net.stop()
-~~~
+|	link [node id] [node id] up/down |	打开/关闭两个节点的链路|
 
 
-
-2.  --topo single, 3
-
-    ~~~python
-    from mininet.net import Mininet
-    from mininet.topo import SingleSwitchTopo
-    Single3 = SingleSwitchTopo(k=3)   #一个交换机下挂3个主机
-    net = Mininet(topo=Single3)
-    net.start()
-    net.pingAll()
-    net.stop()
-    ~~~
-
-
-
-3.  --topo tree,depth=2,fanout=2
-
-    ~~~python
-    from mininet.net import Mininet
-    from mininet.topolib import TreeTopo
-    Tree22 = TreeTopo(depth=2,fanout=2)
-    net = Mininet(topo=Tree22)
-    net.start()
-    net.pingAll()
-    net.stop()
-    ~~~
-
-    
-
-4.  如果是非上述三种类型的拓扑，那么下面介绍一种适合各种拓扑形式的脚本创建模式。本例：1个交换机，2个主机，并且赋予主机IP地址。
-
-~~~python
-from mininet.net import Mininet
-net = Mininet()
-# Creating nodes in the network.
-c0 = net.addController()
-h0 = net.addHost('h0')
-s0 = net.addSwitch('s0')
-h1 = net.addHost('h1')
-# Creating links between nodes in network
-net.addLink(h0, s0)
-net.addLink(h1, s0)
-# Configuration of IP addresses in interfaces
-h0.setIP('192.168.1.1', 24)
-h1.setIP('192.168.1.2', 24)
-net.start()
-net.pingAll()
-net.stop()
-~~~
-
-
-
-5.  除了可以通过Python脚本创建基本的拓扑以外，还能在此基础上对性能进行限制。观察下面给出的脚本文件，addHost()语法可以对主机cpu进行设置，以百分数的形式；addLink()语法可以设置带宽bw、延迟delay、最大队列的大小  
-
-~~~python
-from mininet.net import Mininet
-from mininet.node import CPULimitedHost
-from mininet.link import TCLink
-net = Mininet(host=CPULimitedHost, link=TCLink)
-c0 = net.addController()
-s0 = net.addSwitch('s0')
-h0 = net.addHost('h0')
-h1 = net.addHost('h1', cpu=0.5)
-h2 = net.addHost('h1', cpu=0.5)
-net.addLink(s0, h0, bw=10, delay='5ms',
-max_queue_size=1000, loss=10, use_htb=True)
-net.addLink(s0, h1)
-net.addLink(s0, h2)
-net.start()
-net.pingAll()
-net.stop()
-~~~
-
-
-
-##### 通过MiniEdit 工具画出拓扑图然后保存为.py文件
-
-~~~python
-from mininet.net import Mininet
-from mininet.node import Controller, RemoteController, OVSController  
-from mininet.node import CPULimitedHost, Host, Node                              
-from mininet.node import OVSKernelSwitch, UserSwitch   
-from mininet.node import IVSSwitch    
-from mininet.cli import CLI   
-from mininet.log import setLogLevel, info                              
-from mininet.link import TCLink, Intf
-from subprocess import call                                                     
-
-def myNetwork():
-    
-	net = Mininet( topo=None,    
-		build=False,
-		ipBase='10.0.0.0/8')                    
-	
-    info( '*** Adding controller\n' )                      
-	c0=net.addController(name='c0',                     
-		controller=Controller,        
-		protocol='tcp',       
-		port=6633)    
-	
-    info('*** Add switches\n')                    
-	s2 = net.addSwitch('s2', cls=OVSKernelSwitch)                     
-	s1 = net.addSwitch('s1', cls=OVSKernelSwitch)                     
-
-    info( '*** Add hosts\n')
-	h1 = net.addHost('h1', cls=Host, ip='10.0.0.1', defaultRoute=None)
-	h2 = net.addHost('h2', cls=Host, ip='10.0.0.2', defaultRoute=None)
-    h3 = net.addHost('h3', cls=Host, ip='10.0.0.3', defaultRoute=None)
-    h4 = net.addHost('h4', cls=Host, ip='10.0.0.4', defaultRoute=None)
-
-    info( '*** Add links\n')                    
-	net.addLink(s1, h1)
-    net.addLink(s1, h2)
-    net.addLink(s2, h3)
-    net.addLink(s2, h4)                     
-	
-    info( '*** Starting network\n')
-    net.build()
-    info( '*** Starting controllers\n')                     
-for controller in net.controllers:
-    controller.start()
-    
-info( '*** Starting switches\n') 
-net.get('s2').start([c0])                                                                                              
-~~~
