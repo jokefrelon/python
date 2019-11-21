@@ -24,7 +24,7 @@ for aname in anames:
      print("Find out the Package: "+aname)
      if (xa == ya):
           aimage=requests.get(alinks[xa])
-          with open("///mnt//f//kmod//" + aname,'wb') as f:
+          with open("///mnt//e//kmod//" + aname,'wb') as f:
                f.write(aimage.content)
                print("Downloading  " + aname + "  Please wait patiently !")
                print("\n")
@@ -59,14 +59,14 @@ for bname in bnames:
      print("Find out the Package: "+bname)
      if (xb == yb):
           bimage=requests.get(blinks[xb])
-          with open("///mnt//f//base//" + bname,'wb') as f:
+          with open("///mnt//e//base//" + bname,'wb') as f:
                f.write(bimage.content)
                print("Downloading  " + bname + "  Please wait patiently !")
                print("\n")
           yb = yb+1
      xb = xb+1
 print("Successfully downloaded all of the "+ str(xb)+" Packages !")
-"""
+
 
 
 
@@ -94,7 +94,7 @@ for cname in cnames:
      print("Find out the Package: "+cname)
      if (cx == cy):
           cimage=requests.get(clinks[cx])
-          with open("///mnt//f//lafit//" + cname,'wb') as f:
+          with open("///mnt//e//lafit//" + cname,'wb') as f:
                f.write(cimage.content)
                print("Downloading  " + cname + "  Please wait patiently !")
                print("\n")
@@ -128,7 +128,7 @@ for dname in dnames:
      print("Find out the Package: "+dname)
      if (xd == yd):
           dimage=requests.get(dlinks[xd])
-          with open("///mnt//f//pear//" + dname,'wb') as f:
+          with open("///mnt//e//pear//" + dname,'wb') as f:
                f.write(dimage.content)
                print("Downloading  " + dname + "  Please wait patiently !")
                print("\n")
@@ -162,7 +162,7 @@ for ename in enames:
      print("Find out the Package: "+ename)
      if (ex == ey):
           eimage=requests.get(elinks[ex])
-          with open("///mnt//f//luci//" + ename,'wb') as f:
+          with open("///mnt//e//luci//" + ename,'wb') as f:
                f.write(eimage.content)
                print("Downloading  " + ename + "  Please wait patiently !")
                print("\n")
@@ -196,7 +196,7 @@ for fname in fnames:
      print("Find out the Package: "+fname)
      if (fx == fy):
           fimage=requests.get(flinks[fx])
-          with open("///mnt//f//packages//" + fname,'wb') as f:
+          with open("///mnt//e//packages//" + fname,'wb') as f:
                f.write(fimage.content)
                print("Downloading  " + fname + "  Please wait patiently !")
                print("\n")
@@ -230,7 +230,7 @@ for gname in gnames:
      print("Find out the Package: "+gname)
      if (xg == yg):
           gimage=requests.get(glinks[xg])
-          with open("///mnt//f//newifi//" + gname,'wb') as f:
+          with open("///mnt//e//newifi//" + gname,'wb') as f:
                f.write(gimage.content)
                print("Downloading  " + gname + "  Please wait patiently !")
                print("\n")
@@ -264,7 +264,7 @@ for hname in hnames:
      print("Find out the Package: "+hname)
      if (hx == hy):
           himage=requests.get(hlinks[hx])
-          with open("///mnt//f//pear//" + hname,'wb') as f:
+          with open("///mnt//e//pear//" + hname,'wb') as f:
                f.write(himage.content)
                print("Downloading  " + hname + "  Please wait patiently !")
                print("\n")
@@ -273,4 +273,3 @@ for hname in hnames:
 print("Successfully downloaded all of the "+ str(hx)+" Packages !")
 
 
- """
