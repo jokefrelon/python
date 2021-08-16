@@ -9,7 +9,7 @@ def makeUrl(Num):
 	# Num为html的页数
 	allinks=[]
 	for link in range(1,Num+1):
-		link="https://weicha.cc/category/8/page/{}".format(link)
+		link="https://weitaa.ch/category/8/page/{}".format(link)
 		allinks.append(link)
 	return allinks
 
@@ -62,7 +62,7 @@ for iPhoneSE in Derailed:
 		
 		str ='{\n'+'"name":"'+lastTitle+'",\n'+'"logo":"'+thePicUrl+'",\n'+'"url":"'+realMULink+'"\n'+'},\n'
 		# print(str)
-		with open ("weicha8.json","a+",encoding='utf-8') as f:
+		with open ("m3u8.json","a+",encoding='utf-8') as f:
 			f.write(str)
 		a+=1
 		print(str)

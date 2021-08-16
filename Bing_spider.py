@@ -8,26 +8,25 @@ webPage = requests.get(url = "https://cn.bing.com/?FORM=BEHPTB&ensearch=1",
         )
 we = webPage.text
 ssr = etree.HTML(we)
-Links = ssr.xpath("//div/div[@id='bgDiv']/div/@data-ultra-definition-src")
-Desc=ssr.xpath("//a/div/h2/text()")
 
-Str="https://cn.bing.com"
-desc=""
-re = []
-for sein in Desc:
-        desc=sein
+# 已弃用 Links = ssr.xpath("//div/div[@id='bgDiv']/div/@data-ultra-definition-src")
+staticLink = ssr.xpath("//div[@class='img_cont']/@style")
+link=staticLink[0].split("(")[1].split(")")[0].split("&")[0].replace("1920x1080","UHD")
+realink="https://cn.bing.com"+link
+# 已弃用 Desc=ssr.xpath("//a/div/h2/text()")
+Description=ssr.xpath("//h1[@class='text']/text()")
+desc=Description[0]
+
+
+print("")
 print(datetime.datetime.now())
 print(desc)
 
-for  se  in Links:
-        Str = Str+se
-        re = Str.split("&",1)
-        Str=re[0]
+print("")
 print(datetime.datetime.now())
-print(Str)
-picfile="pic/"+desc+".jpg"
-picture=requests.get(Str)
+print(realink)
+
+picfile="/home/frelon/Bing_pic/pic/"+desc+".jpg"
+picture=requests.get(realink)
 with open (picfile,"wb+") as f:
-        f.write(picture.content)
-print(datetime.datetime.now())
-print("Get The Picture of Bing Successfully! "+"The Picture in \""+picfile+"\"")
+         f.write(picture.content)
