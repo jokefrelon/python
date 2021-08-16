@@ -29,7 +29,7 @@ def makeUrl(Num):
 	# Num为html的页数
 	allinks=[]
 	for link in range(1,Num+1):
-		link="https://weicha.cc/category/8/page/{}".format(link)
+		link="https://baidu.com/gory/8/page/{}".format(link)
 		allinks.append(link)
 	return allinks
 
