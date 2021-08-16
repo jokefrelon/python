@@ -10,9 +10,6 @@ pip install requests
 pip install lxml
 ```
 
-无聊写了一个爬虫,用来爬取某网站的Beauty 图片,可是代码写完了,发现已经被网站拉黑了
-spi.py我也不能执行了,就放到git上充数
-
 ## Bing 每日图片爬虫
 
 最近微软更新了 [bing.com](https://bing.com)的页面，之前的爬虫已经不能正常的爬取图片了，所以现在更新了一下
