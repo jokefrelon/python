@@ -25,4 +25,4 @@ get.py是在学校的时候，搞大数据时需要采集数据写的爬虫，�
 getM3u8.py 是获取某网站上的m3u8视频链接。该网站目前已无法访问。
 
 ## get_jellyfin_info.py
-用于下载jellyfin的最新的deb，只限于Ubuntu （18~20~22）LTS版本
+用于下载jellyfin的最新的deb，只限于Ubuntu （18-20-22）LTS版本
