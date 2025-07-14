@@ -13,7 +13,7 @@ pip install lxml
 ## Bing 每日图片爬虫
 
 最近微软更新了 [bing.com](https://bing.com)的页面，之前的爬虫已经不能正常的爬取图片了，所以现在更新了一下
-图片来源使用的国际版，并非国内版。本人博客也已更新 [JokemeBlog](https://jokeme.top/p/python_spider_download_bing_wallpaper/)。
+图片来源使用的国际版，并非国内版。
 
 ## spi.py && spider.py
 
